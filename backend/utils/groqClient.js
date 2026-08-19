@@ -18,7 +18,7 @@
 */
 
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
-const GROQ_MODEL = "llama-3.1-8b-instant"; // small + fast open-source model, ideal for short text generation
+const GROQ_MODEL = "openai/gpt-oss-120b"; // small + fast open-source model, ideal for short text generation
 
 const callGroqChatCompletion = async (systemPrompt, userPrompt) => {
     if (!process.env.GROQ_API_KEY) {
@@ -39,7 +39,7 @@ const callGroqChatCompletion = async (systemPrompt, userPrompt) => {
                 { role: "user", content: userPrompt },
             ],
             temperature: 0.7, // some creativity, but still predictable/professional
-            max_tokens: 80, // we only want a short description, not an essay
+             max_completion_tokens: 300, // we only want a short description, not an essay
         }),
     });
 
