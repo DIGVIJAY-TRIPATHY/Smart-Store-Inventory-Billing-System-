@@ -1,13 +1,6 @@
 import { Search, X } from "lucide-react";
 
-/*
-  SearchBar - a single reusable search input used across Categories,
-  Products, Stock, and All Members. Filtering itself happens locally in
-  each page (useMemo over the already-fetched list) rather than hitting
-  the backend on every keystroke - these lists are small enough (a
-  store's own catalog/staff, not millions of rows) that a network round
-  trip per keystroke would only add lag for no real benefit.
-*/
+
 const SearchBar = ({ value, onChange, placeholder = "Search..." }) => {
     return (
         <div className="relative w-full sm:w-72">

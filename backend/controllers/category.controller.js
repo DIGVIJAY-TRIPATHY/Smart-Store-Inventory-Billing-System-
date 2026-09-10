@@ -13,7 +13,7 @@ const createCategory = asyncHandler(async (req, res) => {
     const category = await createCategoryService({
         name,
         description,
-        createdBy: req.user._id, // req.user verifyJWT se aata hai
+        createdBy: req.user._id, 
     });
 
     return res

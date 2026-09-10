@@ -38,7 +38,7 @@ const supplierSchema = new Schema(
             },
         ],
         lastSupplyDate: {
-            type: Date, // aakhri baar kab stock supply hua tha
+            type: Date, 
         },
         isActive: {
             type: Boolean,

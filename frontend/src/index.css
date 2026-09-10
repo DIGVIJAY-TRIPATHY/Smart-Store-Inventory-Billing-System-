@@ -1,10 +1,6 @@
 @import "tailwindcss";
 
-/*
-  Tailwind v4 ka naya CSS-first theme system - koi tailwind.config.js
-  file nahi chahiye. StoreDesk POS ka brand palette yahi define hai:
-  soft lavender background + deep indigo accent (reference image jaisa).
-*/
+
 @theme {
   --color-brand-50: #eef1fb;
   --color-brand-100: #e0e5f7;

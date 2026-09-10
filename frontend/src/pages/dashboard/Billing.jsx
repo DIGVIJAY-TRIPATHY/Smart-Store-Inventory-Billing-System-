@@ -21,8 +21,8 @@ const Billing = () => {
     const { isPaymentInProgress, setIsPaymentInProgress } = usePaymentLock();
     const [products, setProducts] = useState([]);
 
-    // Warns on an actual browser tab close/refresh too, not just in-app
-    // navigation (which Sidebar already blocks separately).
+    
+    
     useEffect(() => {
         const handleBeforeUnload = (e) => {
             if (!isPaymentInProgress) return;
@@ -61,7 +61,7 @@ const Billing = () => {
         fetchProducts();
     }, []);
 
-    // Close the search results dropdown when clicking anywhere outside it
+    
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (
@@ -88,12 +88,7 @@ const Billing = () => {
             .slice(0, 8);
     }, [productSearch, products]);
 
-    /*
-      addProductToCart - clicking a search result adds it straight to
-      the cart (quantity 1), or bumps the existing quantity by 1 if it's
-      already in the cart. From there, the +/- steppers on each cart row
-      let the cashier adjust quantity without re-searching.
-    */
+    
     const addProductToCart = (productId) => {
         setCart((prev) => {
             const existing = prev.find((item) => item.productId === productId);
@@ -145,13 +140,7 @@ const Billing = () => {
 
     const grandTotal = subTotal - Number(discount || 0) + Number(tax || 0);
 
-    /*
-      openRazorpayCheckout - only called when the sale's response came
-      back with a non-null "onlinePayment" object (i.e. paymentMethod
-      was card/upi/netbanking/wallet). Razorpay's own popup shows all
-      of those payment methods as tabs inside ONE widget - we don't
-      build separate UI per method ourselves.
-    */
+    
     const openRazorpayCheckout = async (sale, onlinePayment) => {
         const scriptLoaded = await loadRazorpayScript();
         if (!scriptLoaded) {
@@ -162,8 +151,8 @@ const Billing = () => {
             return;
         }
 
-        // Lock navigation from this point until the popup resolves one
-        // way or another (paid, failed verification, or dismissed).
+        
+        
         setIsPaymentInProgress(true);
 
         const options = {
@@ -178,9 +167,9 @@ const Billing = () => {
                 contact: customerPhone,
             },
             handler: async (response) => {
-                // This callback only fires after Razorpay itself has
-                // already accepted the payment - but we still verify the
-                // signature on our own backend before trusting it at all.
+                
+                
+                
                 try {
                     const { data } = await verifyPayment({
                         saleId: sale._id,
@@ -191,11 +180,11 @@ const Billing = () => {
 
                     setInvoice(data.data);
 
-                    // 🔥 Fetch latest stock after sale
+                    
                     const { data: productData } = await getProducts();
                     setProducts(productData.data);
 
-                    // Clear form
+                    
                     setCart([]);
                     setCustomerName("");
                     setCustomerPhone("");
@@ -213,9 +202,9 @@ const Billing = () => {
             },
             modal: {
                 ondismiss: () => {
-                    // Customer closed the popup without paying. The sale
-                    // already exists in the database as "pending" - it is
-                    // NOT lost, and can be reconciled later.
+                    
+                    
+                    
                     setError(
                         `Payment was not completed for invoice ${sale.invoiceNumber}. The sale is saved as pending - you can follow up with the customer, cancel it, or retry payment from Invoice History.`,
                     );
@@ -267,22 +256,22 @@ const Billing = () => {
             const { sale, onlinePayment } = data.data;
 
             if (ONLINE_METHODS.includes(paymentMethod) && onlinePayment) {
-                // Don't clear the form or show the invoice yet - the sale
-                // is still "pending" until Razorpay Checkout completes.
-                // "saving" stays true until the handler/dismiss callback
-                // above resolves it.
+                
+                
+                
+                
                 await openRazorpayCheckout(sale, onlinePayment);
                 return;
             }
 
-            // Cash - sale is already "completed", same as before.
+            
             setInvoice(sale);
 
-            // 🔥 Fetch latest stock after sale
+            
             const { data: productData } = await getProducts();
             setProducts(productData.data);
 
-            // Clear form
+            
             setCart([]);
             setCustomerName("");
             setCustomerPhone("");

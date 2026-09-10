@@ -30,7 +30,7 @@ const InvoiceHistory = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [selectedSale, setSelectedSale] = useState(null);
-    const [actingOn, setActingOn] = useState(null); // saleId currently being cancelled/retried
+    const [actingOn, setActingOn] = useState(null); 
     const { setIsPaymentInProgress } = usePaymentLock();
 
     const fetchSales = async () => {

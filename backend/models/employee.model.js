@@ -11,7 +11,7 @@ const employeeSchema = new Schema(
         },
         user: {
             type: Schema.Types.ObjectId,
-            ref: "User", // agar isko login access diya gaya hai
+            ref: "User", 
         },
         fullName: {
             type: String,

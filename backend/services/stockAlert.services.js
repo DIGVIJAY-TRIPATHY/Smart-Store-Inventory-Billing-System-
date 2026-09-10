@@ -2,10 +2,7 @@ import { Product } from "../models/product.model.js";
 import { User } from "../models/user.model.js";
 import { sendMail } from "../utils/mailer.js";
 
-/*
-  Only Admin and Manager get stock alerts - Cashier/Staff/Employee don't
-  need to be notified about inventory levels.
-*/
+
 const getAlertRecipients = async () => {
     const recipients = await User.find({
         role: { $in: ["admin", "manager"] },
@@ -58,17 +55,7 @@ const getStockAlertType = (product) => {
     return null;
 };
 
-/*
-  checkAndSendStockAlerts
 
-  Called AFTER a sale's transaction has already committed - this function
-  is intentionally separate from the sale-creation flow itself. It
-  re-fetches each sold product fresh (to see the true post-sale stock
-  level and the alert flags), and sends an email only the FIRST time a
-  product crosses a threshold - not on every sale after that, which
-  would otherwise spam Admin/Manager inboxes with repeat alerts for a
-  product that's already known to be low.
-*/
 const checkAndSendStockAlerts = async (saleItems) => {
     const recipients = await getAlertRecipients();
     if (recipients.length === 0) return;
@@ -88,7 +75,7 @@ const checkAndSendStockAlerts = async (saleItems) => {
             await sendMail({ to: recipients, subject, html });
 
             product.outOfStockAlertSent = true;
-            product.lowStockAlertSent = true; // out of stock implies low stock too
+            product.lowStockAlertSent = true; 
             await product.save({ validateBeforeSave: false });
             continue;
         }

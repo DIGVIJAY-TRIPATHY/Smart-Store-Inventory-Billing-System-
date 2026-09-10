@@ -1,8 +1,4 @@
-/*
-  Loads Razorpay's Checkout script only once, and only when actually
-  needed (i.e. the first time someone pays online) - not on every page
-  load, since most sales might still be cash.
-*/
+
 let razorpayScriptPromise = null;
 
 export const loadRazorpayScript = () => {

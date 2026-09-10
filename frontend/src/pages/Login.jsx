@@ -16,7 +16,7 @@ const Login = () => {
       await login(form);
       navigate("/dashboard");
     } catch {
-      // error already AuthContext ke andar set ho chuka hai, UI mein dikh jaayega
+      
     }
   };
 

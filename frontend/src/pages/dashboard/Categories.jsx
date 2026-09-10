@@ -73,8 +73,8 @@ const Categories = () => {
     const handleChange = (e) =>
         setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
-    // Calls our backend AI endpoint (which itself calls Groq). Does
-    // nothing if the name field is empty - no API call is made in that case.
+    
+    
     const handleGenerateDescription = async () => {
         if (!form.name.trim()) return;
 

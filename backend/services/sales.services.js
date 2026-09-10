@@ -175,17 +175,7 @@ const getSaleByIdService = async (saleId) => {
     return sale;
 };
 
-/*
-  cancelSaleService - resolves a sale that's been stuck in "pending"
-  because the customer's online payment was abandoned or failed. Only
-  "pending" sales can be cancelled through this path - a "completed"
-  cash sale needs a proper returns flow, not this.
 
-  Stock that was decremented at sale-creation time (Option A from our
-  architecture discussion - we decrement immediately for both cash and
-  online) is rolled back here, wrapped in its own transaction so the
-  rollback and status change happen atomically together.
-*/
 const cancelSaleService = async (saleId) => {
     const session = await mongoose.startSession();
 

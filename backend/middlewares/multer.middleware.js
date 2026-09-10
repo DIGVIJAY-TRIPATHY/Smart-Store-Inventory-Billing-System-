@@ -5,10 +5,10 @@ const storage = multer.diskStorage({
         cb(null, "./public/temp");
     },
     filename: function (req, file, cb) {
-        // Original filenames collide easily (e.g. "IMG_2024.jpg" from two
-        // different phones uploaded around the same time), which can
-        // overwrite another user's in-flight upload on disk before either
-        // gets pushed to Cloudinary. A unique prefix removes that risk.
+        
+        
+        
+        
         const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
         cb(null, `${uniqueSuffix}-${file.originalname}`);
     },
@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 export const upload = multer({
     storage,
     limits: {
-        fileSize: 5 * 1024 * 1024, // 5MB cap per file
+        fileSize: 5 * 1024 * 1024, 
     },
     fileFilter: (req, file, cb) => {
         const allowed = ["image/jpeg", "image/png", "image/webp", "application/pdf"];

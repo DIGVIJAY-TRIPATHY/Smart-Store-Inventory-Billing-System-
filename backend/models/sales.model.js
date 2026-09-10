@@ -60,7 +60,7 @@ const salesSchema = new Schema(
             ref: "Customer",
             required: true,
         },
-        // Snapshot keeps seller information in historical invoices even if the user is deleted later.
+        
         soldBy: {
             type: soldBySchema,
             required: true,
@@ -99,10 +99,10 @@ const salesSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: "Payment",
         },
-        // These 3 belong to the SALE as a whole (one Razorpay order per
-        // entire checkout), not to individual line items - moved here
-        // from saleItemSchema, where they would have been silently
-        // dropped by Mongoose's strict mode and broken verification.
+        
+        
+        
+        
         razorpayOrderId: {
             type: String,
         },

@@ -22,8 +22,8 @@ router
     .route("/:saleId")
     .get(verifyJWT, authorizeRoles("admin", "manager"), getSaleById);
 
-// Same roles who can create a sale can also cancel their own stuck
-// pending one - no need to escalate to a manager just to resolve it.
+
+
 router
     .route("/:saleId/cancel")
     .patch(

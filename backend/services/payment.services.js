@@ -6,15 +6,7 @@ import {
     verifyPaymentSignature,
 } from "../utils/razorpayClient.js";
 
-/*
-  initiateOnlinePayment - called right after a non-cash Sale has already
-  been created and committed (see sales.services.js). Creates the actual
-  Razorpay Order - deliberately kept OUTSIDE the sale's own DB
-  transaction, since this is a slow external network call and should
-  never hold a database transaction open. Records a Payment attempt,
-  and attaches the order ID back onto the Sale so the frontend can open
-  Razorpay Checkout.
-*/
+
 const initiateOnlinePayment = async (sale) => {
     const order = await createRazorpayOrder({
         amountInRupees: sale.grandTotal,
@@ -34,18 +26,13 @@ const initiateOnlinePayment = async (sale) => {
 
     return {
         razorpayOrderId: order.id,
-        razorpayKeyId: process.env.RAZORPAY_KEY_ID, // public key - safe to expose to the frontend
+        razorpayKeyId: process.env.RAZORPAY_KEY_ID, 
         amount: order.amount,
         currency: order.currency,
     };
 };
 
-/*
-  verifyPaymentService - called by the frontend the moment Razorpay
-  Checkout's own success handler fires. This is the ONLY place a sale
-  actually gets marked "paid" for online methods - we never trust the
-  frontend's word for it without this signature check passing first.
-*/
+
 const verifyPaymentService = async ({
     saleId,
     razorpayOrderId,
@@ -68,11 +55,11 @@ const verifyPaymentService = async ({
     });
 
     if (!isValid) {
-        // Deliberately do NOT trust or apply anything from this request.
-        // The sale stays exactly as it was ("pending") - a later
-        // reconciliation step (Phase 3, still to come) determines the
-        // true status directly from Razorpay's own API rather than
-        // ever trusting this unverified claim.
+        
+        
+        
+        
+        
         throw new ApiError(
             400,
             "Payment verification failed - signature mismatch",

@@ -11,7 +11,7 @@ import {
 
 const router = Router();
 
-// Products dekhna sabke liye zaroori hai (Billing screen ke liye bhi)
+
 router
     .route("/")
     .get(

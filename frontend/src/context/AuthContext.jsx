@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
         setLoading(true);
         setError("");
         try {
-            // identifier email hai ya username, dono se login chalega
+            
             const isEmail = identifier.includes("@");
             const payload = isEmail
                 ? { email: identifier, password }
@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
         setLoading(true);
         setError("");
         try {
-            // formData FormData instance hai (fullName, email, username, password, mobile, avatar file)
+            
             await api.post("/users/register", formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
@@ -55,8 +55,8 @@ export const AuthProvider = ({ children }) => {
             const username = formData.get("username");
             const password = formData.get("password");
 
-            // Register khud login nahi karwata (backend design ke hisaab se),
-            // isliye register hote hi turant login bhi kar dete hain seedha
+            
+            
             return await login({ identifier: username, password });
         } catch (err) {
             const message =
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    // Profile/verification update ke baad local user state refresh karne ke liye
+    
     const updateUser = (updatedUser) => {
         localStorage.setItem("user", JSON.stringify(updatedUser));
         setUser(updatedUser);

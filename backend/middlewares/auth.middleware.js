@@ -5,12 +5,12 @@ import { User } from "../models/user.model.js";
 
 export const verifyJWT = asyncHandler(async (req, _, next) => {
     try {
-        // Authorization header is checked FIRST. This app relies on
-        // localStorage + Bearer tokens as the primary auth mechanism
-        // (works reliably cross-site). Cookies are cross-domain here
-        // (Netlify frontend, Render backend) and can be blocked or left
-        // stale by browser third-party-cookie policies, which was
-        // causing an old session's cookie to override a fresh login.
+        
+        
+        
+        
+        
+        
         const token =
             req.header("Authorization")?.replace("Bearer ", "") ||
             req.cookies?.accessToken;

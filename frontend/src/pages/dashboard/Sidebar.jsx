@@ -60,22 +60,22 @@ const Sidebar = ({ isOpen = false, onClose = () => {} }) => {
     const renderItem = ({ label, icon: Icon, path, end }) => {
         let locked = false;
 
-        // A payment is actively in progress (Razorpay Checkout is open) -
-        // lock EVERY nav item, including Billing itself, until it resolves.
-        // This is checked before any role-based lock below.
+        
+        
+        
         if (isPaymentInProgress) {
             locked = true;
         } else if (isStaff) {
-            // Staff / Cashier → Only Billing is accessible
+            
             locked = path !== "/dashboard/billing";
         } else if (isManager) {
-            // Manager → Cannot access Dashboard, Staff Verification, All Members
+            
             locked =
                 path === "/dashboard" ||
                 path === "/dashboard/verifications" ||
                 path === "/dashboard/members";
         } else if (isEmployee) {
-            // Employee → Cannot access any dashboard modules
+            
             locked = true;
         }
 
@@ -119,7 +119,7 @@ const Sidebar = ({ isOpen = false, onClose = () => {} }) => {
 
     return (
         <>
-            {/* Backdrop - mobile only, closes the drawer on tap */}
+            
             {isOpen && (
                 <div
                     onClick={onClose}

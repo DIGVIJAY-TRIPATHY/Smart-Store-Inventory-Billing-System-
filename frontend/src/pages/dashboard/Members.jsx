@@ -48,9 +48,9 @@ const Members = () => {
         );
     }, [members, searchTerm]);
 
-    // =========================
-    // LOAD ALL MEMBERS
-    // =========================
+    
+    
+    
     const loadMembers = async () => {
         setLoading(true);
         setError("");
@@ -67,9 +67,9 @@ const Members = () => {
         }
     };
 
-    // =========================
-    // LOAD MEMBER DETAILS
-    // =========================
+    
+    
+    
     const openMember = async (userId) => {
         setError("");
 
@@ -84,9 +84,9 @@ const Members = () => {
         }
     };
 
-    // =========================
-    // MAKE STAFF/CASHIER MANAGER
-    // =========================
+    
+    
+    
     const handleMakeManager = async (member) => {
         if (!member?.username) {
             setError("Username not found");
@@ -115,11 +115,11 @@ const Members = () => {
         try {
             await assignManagerRole(member.username);
 
-            // Refresh member list
+            
             const membersResponse = await getMembers();
             setMembers(membersResponse.data.data);
 
-            // Refresh selected member details
+            
             const memberResponse = await getMemberById(member._id);
 
             setSelectedMember(memberResponse.data.data);
@@ -172,9 +172,9 @@ const Members = () => {
         }
     };
 
-    // =========================
-    // DELETE MEMBER
-    // =========================
+    
+    
+    
     const handleDelete = async () => {
         if (!selectedMember) return;
 
@@ -204,20 +204,20 @@ const Members = () => {
         }
     };
 
-    // =========================
-    // INITIAL LOAD
-    // =========================
+    
+    
+    
     useEffect(() => {
         loadMembers();
     }, []);
 
-    // =========================
-    // MEMBER DETAILS PAGE
-    // =========================
+    
+    
+    
     if (selectedMember) {
         return (
             <div className="max-w-4xl">
-                {/* Back Button */}
+                
                 <button
                     onClick={() => {
                         setSelectedMember(null);
@@ -229,13 +229,13 @@ const Members = () => {
                     Back to All Members
                 </button>
 
-                {/* Error */}
+                
                 {error && <p className="text-sm text-red-500 mb-4">{error}</p>}
 
                 <div className="bg-white border border-slate-200 rounded-2xl p-6">
-                    {/* PROFILE HEADER */}
+                    
                     <div className="flex flex-col sm:flex-row sm:items-center gap-5 pb-6 border-b border-slate-100">
-                        {/* Avatar */}
+                        
                         {selectedMember.avatar ? (
                             <img
                                 src={selectedMember.avatar}
@@ -248,7 +248,7 @@ const Members = () => {
                             </div>
                         )}
 
-                        {/* Name + Role */}
+                        
                         <div className="flex-1">
                             <h2 className="text-2xl font-bold text-slate-900">
                                 {selectedMember.fullName}
@@ -268,9 +268,9 @@ const Members = () => {
                             </span>
                         </div>
 
-                        {/* ACTION BUTTONS */}
+                        
                         <div className="flex flex-wrap items-center gap-3 mt-4 sm:mt-0">
-                            {/* Make Manager */}
+                            
                             {(selectedMember.role === "staff" ||
                                 selectedMember.role === "cashier") && (
                                 <button
@@ -286,7 +286,7 @@ const Members = () => {
                                 </button>
                             )}
 
-                            {/* Remove Manager Role */}
+                            
                             {selectedMember.role === "manager" && (
                                 <button
                                     onClick={() =>
@@ -301,7 +301,7 @@ const Members = () => {
                                 </button>
                             )}
 
-                            {/* Delete Member */}
+                            
                             {selectedMember.role !== "admin" && (
                                 <button
                                     onClick={handleDelete}
@@ -314,9 +314,9 @@ const Members = () => {
                         </div>
                     </div>
 
-                    {/* MEMBER INFORMATION */}
+                    
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-6">
-                        {/* Full Name */}
+                        
                         <div className="rounded-xl bg-slate-50 p-4">
                             <p className="text-xs text-slate-400 uppercase font-semibold">
                                 Full Name
@@ -327,7 +327,7 @@ const Members = () => {
                             </p>
                         </div>
 
-                        {/* Email */}
+                        
                         <div className="rounded-xl bg-slate-50 p-4">
                             <p className="text-xs text-slate-400 uppercase font-semibold">
                                 Email
@@ -338,7 +338,7 @@ const Members = () => {
                             </p>
                         </div>
 
-                        {/* Mobile */}
+                        
                         <div className="rounded-xl bg-slate-50 p-4">
                             <p className="text-xs text-slate-400 uppercase font-semibold">
                                 Mobile
@@ -349,7 +349,7 @@ const Members = () => {
                             </p>
                         </div>
 
-                        {/* Role */}
+                        
                         <div className="rounded-xl bg-slate-50 p-4">
                             <p className="text-xs text-slate-400 uppercase font-semibold">
                                 Role
@@ -360,7 +360,7 @@ const Members = () => {
                             </p>
                         </div>
 
-                        {/* Verification */}
+                        
                         <div className="rounded-xl bg-slate-50 p-4">
                             <p className="text-xs text-slate-400 uppercase font-semibold">
                                 Verification
@@ -374,7 +374,7 @@ const Members = () => {
                             </p>
                         </div>
 
-                        {/* Status */}
+                        
                         <div className="rounded-xl bg-slate-50 p-4">
                             <p className="text-xs text-slate-400 uppercase font-semibold">
                                 Status
@@ -388,14 +388,14 @@ const Members = () => {
                         </div>
                     </div>
 
-                    {/* IDENTITY DOCUMENTS */}
+                    
                     <div className="mt-6">
                         <h3 className="text-sm font-bold text-slate-800 mb-3">
                             Identity Documents
                         </h3>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {/* Aadhar */}
+                            
                             <a
                                 href={selectedMember.aadharCard || "#"}
                                 target="_blank"
@@ -417,7 +417,7 @@ const Members = () => {
                                     : "Aadhar Card Not Submitted"}
                             </a>
 
-                            {/* PAN */}
+                            
                             <a
                                 href={selectedMember.panCard || "#"}
                                 target="_blank"
@@ -445,12 +445,12 @@ const Members = () => {
         );
     }
 
-    // =========================
-    // ALL MEMBERS PAGE
-    // =========================
+    
+    
+    
     return (
         <div>
-            {/* PAGE HEADER */}
+            
             <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
                 <div>
                     <h2 className="text-2xl font-bold text-slate-900">
@@ -468,21 +468,21 @@ const Members = () => {
                 />
             </div>
 
-            {/* ERROR */}
+            
             {error && <p className="text-sm text-red-500 mb-4">{error}</p>}
 
-            {/* LOADING */}
+            
             {loading ? (
                 <div className="bg-white border border-slate-200 rounded-2xl p-16 text-center text-slate-400">
                     Loading members...
                 </div>
             ) : filteredMembers.length === 0 ? (
-                /* EMPTY */
+                
                 <div className="bg-white border border-slate-200 rounded-2xl p-16 text-center text-slate-400">
                     {searchTerm ? "No members match your search" : "No members found"}
                 </div>
             ) : (
-                /* MEMBERS GRID */
+                
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                     {filteredMembers.map((member) => (
                         <button
@@ -490,9 +490,9 @@ const Members = () => {
                             onClick={() => openMember(member._id)}
                             className="text-left bg-white border border-slate-200 rounded-2xl p-5 hover:border-brand-200 hover:shadow-sm transition-all"
                         >
-                            {/* Member Header */}
+                            
                             <div className="flex items-center gap-4">
-                                {/* Avatar */}
+                                
                                 {member.avatar ? (
                                     <img
                                         src={member.avatar}
@@ -505,7 +505,7 @@ const Members = () => {
                                     </div>
                                 )}
 
-                                {/* Name + Role */}
+                                
                                 <div className="min-w-0 flex-1">
                                     <p className="font-bold text-slate-900 truncate">
                                         {member.fullName}
@@ -522,7 +522,7 @@ const Members = () => {
                                 </div>
                             </div>
 
-                            {/* Member Information */}
+                            
                             <div className="mt-4 space-y-2 text-xs text-slate-500">
                                 <p className="flex items-center gap-2">
                                     <Mail size={14} />

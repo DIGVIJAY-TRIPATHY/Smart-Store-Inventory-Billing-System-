@@ -30,7 +30,7 @@ const customerSchema = new Schema(
         gstNumber: {
             type: String,
             trim: true,
-            uppercase: true, // wholesale customers ke liye zaroori ho sakta hai
+            uppercase: true, 
         },
         loyaltyPoints: {
             type: Number,
@@ -38,7 +38,7 @@ const customerSchema = new Schema(
         },
         totalPurchases: {
             type: Number,
-            default: 0, // lifetime spend track karne ke liye
+            default: 0, 
         },
         isActive: {
             type: Boolean,

@@ -40,7 +40,7 @@ const Register = () => {
             await register(formData);
             navigate("/dashboard");
         } catch {
-            // error already AuthContext ke andar set ho chuka hai
+            
         }
     };
 

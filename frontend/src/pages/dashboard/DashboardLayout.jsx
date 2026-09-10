@@ -31,7 +31,7 @@ const LOCKED_FOR_MANAGER = [
     "/dashboard/members",
 ];
 
-// Default allowed route per role
+
 const DEFAULT_ROUTE = {
     staff: "/dashboard/billing",
     cashier: "/dashboard/billing",
@@ -74,9 +74,7 @@ const DashboardLayout = () => {
             />
 
             <div className="flex-1 flex flex-col min-w-0">
-                {/* Mobile-only top bar - hidden from lg upward, since the
-                    sidebar is always visible there and this bar would be
-                    redundant. */}
+                
                 <header className="lg:hidden sticky top-0 z-20 flex items-center gap-3 px-4 py-3 bg-white border-b border-slate-200">
                     <button
                         onClick={() => setSidebarOpen(true)}

@@ -17,7 +17,7 @@ const productSchema = new Schema(
             required: true,
             unique: true,
             trim: true,
-            uppercase: true, // stock keeping unit - har product ka unique identifier
+            uppercase: true, 
         },
         category: {
             type: Schema.Types.ObjectId,
@@ -36,12 +36,12 @@ const productSchema = new Schema(
         purchasePrice: {
             type: Number,
             required: true,
-            min: 0, // jitne mein hum kharida
+            min: 0, 
         },
         sellingPrice: {
             type: Number,
             required: true,
-            min: 0, // jitne mein hum bechenge
+            min: 0, 
         },
         quantityInStock: {
             type: Number,
@@ -51,11 +51,11 @@ const productSchema = new Schema(
         },
         reorderLevel: {
             type: Number,
-            default: 10, // isse neeche stock gaya toh restock ka alert bajega
+            default: 10, 
         },
-        // These two flags stop the same low-stock/out-of-stock email from
-        // being sent again on every subsequent sale of the same product.
-        // They get reset to false whenever the product is restocked.
+        
+        
+        
         lowStockAlertSent: {
             type: Boolean,
             default: false,
@@ -66,7 +66,7 @@ const productSchema = new Schema(
         },
         images: [
             {
-                type: String, // cloudinary/local urls
+                type: String, 
             },
         ],
         isActive: {

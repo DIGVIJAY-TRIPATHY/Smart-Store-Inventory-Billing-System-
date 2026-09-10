@@ -1,13 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-/*
-  Payment model - one document per ONLINE payment attempt against a Sale.
 
-  Cash sales never create a Payment record here - there's nothing to
-  reconcile with a gateway for cash. This exists purely as an audit
-  trail / reconciliation target for Razorpay; the Sale document itself
-  remains the single source of truth for what was actually sold.
-*/
 const paymentSchema = new Schema(
     {
         sale: {

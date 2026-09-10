@@ -31,13 +31,13 @@ const userSchema = new Schema(
             trim: true,
         },
         avatar: {
-            type: String, // cloudinary url - profile picture ke liye
+            type: String, 
         },
         aadharCard: {
-            type: String, // cloudinary url - sirf verification submit karte waqt aata hai
+            type: String, 
         },
         panCard: {
-            type: String, // cloudinary url - sirf verification submit karte waqt aata hai
+            type: String, 
         },
         password: {
             type: String,
@@ -48,7 +48,7 @@ const userSchema = new Schema(
             enum: ["admin", "manager", "cashier", "staff", "employee"],
             default: "employee",
         },
-        // Employee ka verification kis stage pe hai - staff verification workflow ke liye
+        
         
         verificationStatus: {
             type: String,

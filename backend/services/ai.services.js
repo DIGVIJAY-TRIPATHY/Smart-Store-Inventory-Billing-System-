@@ -1,14 +1,7 @@
 import { ApiError } from "../utils/ApiError.js";
 import { callGroqChatCompletion } from "../utils/groqClient.js";
 
-/*
-  generateDescriptionService
 
-  This is where we decide WHAT to ask the model, not HOW to call it
-  (that part is groqClient.js's job). Keeping the prompt here, in the
-  service layer, matches this project's existing convention: services
-  hold business logic, utils hold raw third-party plumbing.
-*/
 const generateDescriptionService = async ({ name, type }) => {
     if (!name?.trim()) {
         throw new ApiError(400, "Name is required to generate a description");

@@ -147,9 +147,9 @@ const restockProductService = async (productId, quantity) => {
 
     product.quantityInStock += Number(quantity);
 
-    // Restocking means someone has acted on the shortage - reset both
-    // flags so a future dip below the threshold triggers a fresh alert
-    // instead of staying silent forever after the first email.
+    
+    
+    
     product.lowStockAlertSent = false;
     product.outOfStockAlertSent = false;
 
