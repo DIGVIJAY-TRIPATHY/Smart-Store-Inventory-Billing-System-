@@ -1,47 +1,55 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
+let transporter = null;
 
+const getTransporter = () => {
+    if (transporter) return transporter;
 
-let resendClient = null;
+    const host = process.env.SMTP_HOST?.trim();
+    const user = process.env.SMTP_USER?.trim();
+    const pass = process.env.SMTP_PASS;
 
-const getResendClient = () => {
-    if (!resendClient) {
-        const apiKey = process.env.RESEND_API_KEY?.trim();
-        if (!apiKey) {
-            return null;
-        }
+    if (!host || !user || !pass) return null;
 
-        resendClient = new Resend(apiKey);
-    }
+    const port = Number(process.env.SMTP_PORT) || 587;
+    const secure =
+        process.env.SMTP_SECURE !== undefined
+            ? process.env.SMTP_SECURE === "true"
+            : port === 465;
 
-    return resendClient;
+    transporter = nodemailer.createTransport({
+        host,
+        port,
+        secure,
+        auth: { user, pass },
+    });
+
+    return transporter;
 };
 
-const sendMail = async ({ to, subject, html }) => {
-    const resend = getResendClient();
+const sendMail = async ({ to, subject, html, text }) => {
+    const mailTransporter = getTransporter();
 
-    if (!resend) {
+    if (!mailTransporter) {
         console.error(
-            "Resend email not sent because RESEND_API_KEY is not configured.",
+            "Email not sent: SMTP_HOST, SMTP_USER and SMTP_PASS must be configured.",
         );
         return;
     }
 
     try {
-        await resend.emails.send({
+        await mailTransporter.sendMail({
             from:
-                process.env.RESEND_FROM_EMAIL?.trim() ||
-                "StoreDesk POS <onboarding@resend.dev>",
-            to, 
+                process.env.MAIL_FROM?.trim() ||
+                `StoreDesk POS <${process.env.SMTP_USER.trim()}>`,
+            to: Array.isArray(to) ? to.join(", ") : to,
             subject,
             html,
+            text,
         });
     } catch (error) {
-        
-        
-        
         console.error(
-            "Failed to send email via Resend:",
+            "Failed to send email via SMTP:",
             error?.message || error,
         );
     }
